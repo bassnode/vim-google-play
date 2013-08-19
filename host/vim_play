@@ -3,9 +3,11 @@
 import sys
 import struct
 import time
-import json
 import asyncore
 import socket
+import logging
+
+logging.basicConfig(filename='tmp/chrome.log',level=logging.DEBUG)
 
 class PlayHandler(asyncore.dispatcher_with_send):
 
@@ -13,10 +15,12 @@ class PlayHandler(asyncore.dispatcher_with_send):
     def handle_read(self):
       data = self.recv(8192)
       if data:
+        logging.debug("handling read")
         self.write_to_chrome(data)
         self.close()
 
     def write_to_chrome(self, command):
+      logging.debug("writing to chrome")
       command = command.encode('utf-8')
 
       sys.stdout.write(struct.pack("I", len(command)))
@@ -36,6 +40,7 @@ class PlayServer(asyncore.dispatcher):
     pair = self.accept()
     if pair is not None:
         sock, addr = pair
+        logging.debug("handling accept")
         #print 'Incoming connection from %s' % repr(addr)
         handler = PlayHandler(sock)
 
