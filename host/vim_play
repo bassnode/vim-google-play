@@ -3,12 +3,52 @@
 import sys
 import struct
 import time
+import json
+import asyncore
+import socket
 
-def Main():
-  message_number = 0
+class PlayHandler(asyncore.dispatcher_with_send):
 
-  while 1:
-    # Read the message type (first 4 bytes).
+   # Handle incoming vim command
+    def handle_read(self):
+      data = self.recv(8192)
+      if data:
+        self.write_to_chrome(data)
+        self.close()
+
+    def write_to_chrome(self, command):
+      command = command.encode('utf-8')
+
+      sys.stdout.write(struct.pack("I", len(command)))
+      sys.stdout.write(command)
+      sys.stdout.flush()
+
+class PlayServer(asyncore.dispatcher):
+
+  def __init__(self, host, port):
+    asyncore.dispatcher.__init__(self)
+    self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+    self.set_reuse_addr()
+    self.bind((host, port))
+    self.listen(5)
+
+  def handle_accept(self):
+    pair = self.accept()
+    if pair is not None:
+        sock, addr = pair
+        #print 'Incoming connection from %s' % repr(addr)
+        handler = PlayHandler(sock)
+
+
+if __name__ == '__main__':
+  server = PlayServer('localhost', 8080)
+  asyncore.loop()
+
+#def Main():
+  #message_number = 0
+
+  #while 1:
+    ## Read the message type (first 4 bytes).
     #text_length_bytes = sys.stdin.read(4)
 
     #if len(text_length_bytes) == 0:
@@ -20,17 +60,17 @@ def Main():
     ## Read the text (JSON object) of the message.
     #text = sys.stdin.read(text_length).decode('utf-8')
 
-    message_number += 1
+    #message_number += 1
 
-    response = '{"id": 1}'.encode('utf-8')
+    #response = '{"id": 1}'.encode('utf-8')
 
-    try:
-      sys.stdout.write(struct.pack("I", len(response)))
-      sys.stdout.write(response)
-      sys.stdout.flush()
-      time.sleep(1)
-    except IOError:
-      break
+    #try:
+      #sys.stdout.write(struct.pack("I", len(response)))
+      #sys.stdout.write(response)
+      #sys.stdout.flush()
+      #time.sleep(1)
+    #except IOError:
+      #break
 
-if __name__ == '__main__':
-  Main()
+#if __name__ == '__main__':
+  #Main()

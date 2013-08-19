@@ -42,8 +42,8 @@ function onDisconnected() {
 }
 
 function connect() {
-  var hostName = "echo";
-  appendMessage("Connecting to native messaging host <b>" + hostName + "</b>")
+  var hostName = "vim_play";
+  appendMessage("Connecting to native messaging host <b>" + hostName + "</b>");
   port = chrome.extension.connectNative(hostName);
   port.onMessage.addListener(onNativeMessage);
   port.onDisconnect.addListener(onDisconnected);
@@ -56,7 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
       'click', sendNativeMessage);
   updateUiState();
 });
-//var port = chrome.runtime.connectNative('echo');
+
+// other method
+//var port = chrome.runtime.connectNative('vim_play');
 
 //port.onMessage.addListener(function(msg) {
   //console.log("Received" + msg);
@@ -65,8 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
 //port.onDisconnect.addListener(function() {
   //console.log("Disconnected");
 //});
-
-//port.postMessage({ text: "Hello, my_application" });
 
 //chrome.runtime.sendNativeMessage('echo',
   //{ text: "Hello" },
