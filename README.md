@@ -33,11 +33,23 @@ By default, the key bindings are the following:
 
 Configuration
 -------------
-The script uses netcat (`nc`) communicate.  If your OS doesn't have access to netcat,
+The script uses netcat (`nc`) to communicate.  If your OS doesn't have access to netcat,
 you can override the binary to use by setting this in your ~/.vimrc:
 
 ```
   let g:google_play_net_exec = 'netcat.exe'
 ```
 
-Note that it's highly preferrable to use netcat as there's no guarantee your replacement will work.
+Note that it's much preferred to use netcat as there's no guarantee your replacement will work.
+
+Notes
+-----
+The perceptive developer will note that in the initial Git checkout, you also pull down the Chrome Extension code.  The reasons the steps
+suggest installing it from the Chrome Store are to have extension IDs match up (the Vim plugin depends on it) and to make it easier
+for you to update.
+
+In its current state, the Pyhton script will die if you update/alter the Extension while Chrome is running.  The way around this is to execute:
+
+    sudo ~/.vim/bundle/vim-google-play/chrome/host/kill.sh
+
+Then open the Chrome Extensions panel and reload it (or restart Chrome).  This annoyance is being worked on.
