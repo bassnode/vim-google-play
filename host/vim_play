@@ -7,75 +7,67 @@ import asyncore
 import socket
 import logging
 
-logging.basicConfig(filename='tmp/chrome.log',level=logging.DEBUG)
+#logging.basicConfig(filename='/tmp/chrome.log',level=logging.DEBUG)
+#
+#class PlayHandler(asyncore.dispatcher_with_send):
+#
+#   # Handle incoming vim command
+#    def handle_read(self):
+#      data = self.recv(8192)
+#      if data:
+#        logging.debug("handling read")
+#        self.write_to_chrome(data)
+#        self.close()
+#
+#    def write_to_chrome(self, command):
+#      logging.debug("writing to chrome")
+#      command = command.encode('utf-8')
+#      logging.debug("WTC: encoded")
+#
+#      sys.stdout.write(struct.pack("I", len(command)))
+#      logging.debug("WTC: packed")
+#      sys.stdout.write(command)
+#      logging.debug("WTC: written")
+#      sys.stdout.flush()
+#      logging.debug("WTC: flushed")
+#
+#class PlayServer(asyncore.dispatcher):
+#
+#  def __init__(self, host, port):
+#    asyncore.dispatcher.__init__(self)
+#    self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+#    self.set_reuse_addr()
+#    self.bind((host, port))
+#    self.listen(5)
+#
+#  def handle_accept(self):
+#    pair = self.accept()
+#    if pair is not None:
+#        sock, addr = pair
+#        logging.debug("handling accept")
+#        #print 'Incoming connection from %s' % repr(addr)
+#        handler = PlayHandler(sock)
+#
+#
+#if __name__ == '__main__':
+#  server = PlayServer('localhost', 8080)
+#  asyncore.loop()
 
-class PlayHandler(asyncore.dispatcher_with_send):
+def Main():
+  message_number = 0
 
-   # Handle incoming vim command
-    def handle_read(self):
-      data = self.recv(8192)
-      if data:
-        logging.debug("handling read")
-        self.write_to_chrome(data)
-        self.close()
+  while 1:
+    message_number += 1
 
-    def write_to_chrome(self, command):
-      logging.debug("writing to chrome")
-      command = command.encode('utf-8')
+    response = '{"id": 1}'.encode('utf-8')
 
-      sys.stdout.write(struct.pack("I", len(command)))
-      sys.stdout.write(command)
+    try:
+      sys.stdout.write(struct.pack("I", len(response)))
+      sys.stdout.write(response)
       sys.stdout.flush()
-
-class PlayServer(asyncore.dispatcher):
-
-  def __init__(self, host, port):
-    asyncore.dispatcher.__init__(self)
-    self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
-    self.set_reuse_addr()
-    self.bind((host, port))
-    self.listen(5)
-
-  def handle_accept(self):
-    pair = self.accept()
-    if pair is not None:
-        sock, addr = pair
-        logging.debug("handling accept")
-        #print 'Incoming connection from %s' % repr(addr)
-        handler = PlayHandler(sock)
-
+      time.sleep(1)
+    except IOError:
+      break
 
 if __name__ == '__main__':
-  server = PlayServer('localhost', 8080)
-  asyncore.loop()
-
-#def Main():
-  #message_number = 0
-
-  #while 1:
-    ## Read the message type (first 4 bytes).
-    #text_length_bytes = sys.stdin.read(4)
-
-    #if len(text_length_bytes) == 0:
-      #break
-
-    ## Read the message length (4 bytes).
-    #text_length = struct.unpack('i', text_length_bytes)[0]
-
-    ## Read the text (JSON object) of the message.
-    #text = sys.stdin.read(text_length).decode('utf-8')
-
-    #message_number += 1
-
-    #response = '{"id": 1}'.encode('utf-8')
-
-    #try:
-      #sys.stdout.write(struct.pack("I", len(response)))
-      #sys.stdout.write(response)
-      #sys.stdout.flush()
-      #time.sleep(1)
-    #except IOError:
-      #break
-
-#if __name__ == '__main__':
-  #Main()
+  Main()

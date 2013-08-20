@@ -21,17 +21,18 @@ function onNativeMessage(message) {
   });
 }
 
-function onDisconnected() {
-  log("Failed to connect: " + chrome.runtime.lastError.message);
-  port = null;
-}
+//function onDisconnected() {
+  //log("Failed to connect: " + chrome.runtime.lastError.message);
+  //port = null;
+//}
 
 function connect() {
   var hostName = "vim_play";
   port = chrome.extension.connectNative(hostName);
-  log("Connected to native messaging host " + hostName);
+  log("Connected to native messaging host");
+  log(port);
   port.onMessage.addListener(onNativeMessage);
-  port.onDisconnect.addListener(onDisconnected);
+  //port.onDisconnect.addListener(onDisconnected);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -39,14 +40,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // other method
-//var port = chrome.runtime.connectNative('vim_play');
-
-//port.onMessage.addListener(function(msg) {
-  //console.log("Received" + msg);
-//});
-
-//port.onDisconnect.addListener(function() {
-  //console.log("Disconnected");
+//var port = null;
+//document.addEventListener('DOMContentLoaded', function () {
+//  console.log('loadin');
+//  port = chrome.runtime.connectNative('vim_play');
+//
+//  port.onMessage.addListener(function(msg) {
+//    console.log("Received" + msg);
+//  });
+//
+//  port.onDisconnect.addListener(function() {
+//    console.log("Disconnected");
+//  });
 //});
 
 //chrome.runtime.sendNativeMessage('echo',

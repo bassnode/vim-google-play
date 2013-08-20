@@ -11,6 +11,5 @@ else
   TARGET_DIR='/etc/opt/chrome/native-messaging-hosts'
 fi
 
-HOST_NAME=com.google.chrome.example.echo
 rm $TARGET_DIR/vim_play.json
-echo Native messaging host $HOST_NAME has been uninstalled.
+echo Native messaging host vim_play has been uninstalled.
