@@ -17,6 +17,7 @@ function onNativeMessage(message) {
     console.log('tabs', tabs);
     chrome.tabs.sendMessage(tabs[0].id, message, function(response) {
       console.log(response);
+      port.postMessage(response);
     });
   });
 }

@@ -17,7 +17,25 @@ class PlayHandler(asyncore.dispatcher_with_send):
       data = self.recv(8192)
       if data:
         self.write_to_chrome(data)
-        self.close()
+        
+        while 1:
+          # Read the message type (first 4 bytes).
+          text_length_bytes = sys.stdin.read(4)
+
+          if len(text_length_bytes) > 0:
+            # Read the message length (4 bytes).
+            text_length = struct.unpack('i', text_length_bytes)[0]
+
+            # Read the text (JSON object) of the message.
+            text = sys.stdin.read(text_length)#.decode('utf-8')
+            logging.debug("returned text " + text)
+
+            self.send(text)
+            self.close()
+            return
+
+          else:
+            time.sleep(0.1)
 
     def write_to_chrome(self, command_text):
       formatted = { 'command': command_text.rstrip() }
