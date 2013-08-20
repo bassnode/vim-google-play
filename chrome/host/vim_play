@@ -78,7 +78,7 @@ class PlayServer(asyncore.dispatcher):
 
 if __name__ == '__main__':
   try:
-    server = PlayServer('localhost', 8080)
+    server = PlayServer('localhost', 8123)
     asyncore.loop()
   except:
     logging.exception("global exception")

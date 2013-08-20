@@ -8,7 +8,7 @@ if !exists('g:google_play_net_exec')
 endif
 
 function! s:GPVim(command)
-  let output = system('echo ' . a:command . ' | ' . g:google_play_net_exec . ' 127.0.0.1 8080')
+  let output = system('echo ' . a:command . ' | ' . g:google_play_net_exec . ' 127.0.0.1 8123')
   echom output
 endfunction
 
