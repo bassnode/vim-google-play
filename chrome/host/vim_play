@@ -7,6 +7,7 @@ import asyncore
 import socket
 import logging
 import json
+import HTMLParser
 
 logging.basicConfig(filename='/tmp/chrome.log',level=logging.DEBUG)
 
@@ -51,7 +52,12 @@ class PlayHandler(asyncore.dispatcher_with_send):
   def format_song(self, text):
     track_info = json.loads(text)['track']
     track = {key: track_info[key].encode('utf-8') for key in track_info.keys()}
-    return "{} - {} / {}".format(track['artist'], track['song'], track['album'])
+    formatted = "{} - {}".format(track['artist'], track['song'])
+    if track['album']:
+      formatted += " / " + track['album']
+
+    h = HTMLParser.HTMLParser()
+    return h.unescape(formatted)
 
 class PlayServer(asyncore.dispatcher):
 

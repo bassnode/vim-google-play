@@ -8,9 +8,17 @@ var currentTrackInfo = function() {
   return {
     song: document.getElementById('playerSongTitle').innerHTML,
     artist: document.getElementById('player-artist').innerHTML,
-    album: document.getElementsByClassName('player-album')[0].innerHTML,
+    album: currentAlbum(),
     state: playPauseButton().className.indexOf('playing') === -1 ? 'paused' : 'playing'
   };
+};
+
+var currentAlbum = function() {
+    var albums = document.getElementsByClassName('player-album');
+    if(albums.length > 0)
+      return albums[0].innerHTML;
+
+    return '';
 };
 
 var triggerKeypress = function(keyCode) {
