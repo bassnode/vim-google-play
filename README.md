@@ -1,10 +1,13 @@
 Google Play Vim
 ===============
-Control Google Play Music with Vim!
+Google Play Music + Vim!
+Keep focus on your code and still control Google Play's Music interface.
 
 
 Installation
 ------------
+Make sure you're using the beta version of [Google Chrome](https://www.google.com/intl/en/chrome/browser/beta.html "Chrome Beta")
+
     # Install the Vim plugin via Pathogen
     git clone https://code.google.com/p/vim-google-play/ ~/.vim/bundle/vim-google-play
 
