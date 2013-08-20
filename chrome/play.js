@@ -1,5 +1,3 @@
-console.log('loaded play.js');
-
 var playPauseButton = function() {
   return document.querySelector("button[data-id='play-pause']");
 };
