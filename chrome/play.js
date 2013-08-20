@@ -13,6 +13,17 @@ var currentTrackInfo = function() {
   };
 };
 
+var triggerKeypress = function(keyCode) {
+  var event = document.createEvent("Events");
+
+  event.initEvent("keydown", true, true);
+
+  event.keyCode = keyCode;
+  event.which = keyCode;
+
+  document.body.dispatchEvent(event);
+};
+
 var commands = {
   play: function() {
     var playBtn = playPauseButton();
@@ -32,6 +43,12 @@ var commands = {
     // Click "My Library"
     document.querySelector("li[data-type='artists']").click();
     document.querySelector("button[data-id='shuffle-my-library']").click();
+  },
+  louder: function() {
+    triggerKeypress(187);
+  },
+  softer: function() {
+    triggerKeypress(189);
   }
 };
 
