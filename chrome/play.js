@@ -1,34 +1,37 @@
+var currentTrackInfo = function() {
+  return {
+    song:   currentSong(),
+    artist: currentArtist(),
+    album:  currentAlbum(),
+    state:  playPauseButton().className.indexOf('playing') === -1 ? 'paused' : 'playing'
+  };
+};
+
+var fetchSafely = function(domId) {
+    var el = document.getElementById(domId);
+    return (el && el.length) ?  el.innerHTML : '';
+};
+
 var playPauseButton = function() {
   return document.querySelector("button[data-id='play-pause']");
 };
 
-var currentTrackInfo = function() {
-  return {
-    song: document.getElementById('playerSongTitle').innerHTML,
-    artist: document.getElementById('player-artist').innerHTML,
-    album: currentAlbum(),
-    state: playPauseButton().className.indexOf('playing') === -1 ? 'paused' : 'playing'
-  };
+var currentSong = function() {
+  return fetchSafely('playerSongTitle');
+};
+
+var currentArtist = function() {
+  return fetchSafely('player-artist');
 };
 
 var currentAlbum = function() {
     var albums = document.getElementsByClassName('player-album');
-    if(albums.length > 0)
+    if(albums && albums.length > 0)
       return albums[0].innerHTML;
 
     return '';
 };
 
-var triggerKeypress = function(keyCode) {
-  var event = document.createEvent("Events");
-
-  event.initEvent("keydown", true, true);
-
-  event.keyCode = keyCode;
-  event.which = keyCode;
-
-  document.body.dispatchEvent(event);
-};
 
 var commands = {
   play: function() {
@@ -51,10 +54,10 @@ var commands = {
     document.querySelector("button[data-id='shuffle-my-library']").click();
   },
   louder: function() {
-    triggerKeypress(187);
+    // no-op. handled on system for now
   },
   softer: function() {
-    triggerKeypress(189);
+    // no-op. handled on system for now
   }
 };
 
