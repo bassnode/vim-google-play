@@ -1,5 +1,5 @@
 {
-  "name": "Vim Play",
+  "name": "Vim Google Play",
   "version": "1.0",
   "manifest_version": 2,
   "description": "Control Google Play with Vim",
