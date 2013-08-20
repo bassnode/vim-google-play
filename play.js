@@ -4,10 +4,6 @@ var playPauseButton = function() {
   return document.querySelector("button[data-id='play-pause']");
 };
 
-var nextButton = function() {
-  return 
-};
-
 var currentTrackInfo = function() {
   return {
     song: document.getElementById('playerSongTitle').innerHTML,
