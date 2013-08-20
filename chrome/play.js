@@ -15,7 +15,12 @@ var currentTrackInfo = function() {
 
 var commands = {
   play: function() {
-    playPauseButton().click();
+    var playBtn = playPauseButton();
+
+    if(playBtn === undefined || playBtn.disabled)
+      document.querySelector("div .header-tab-title[data-type='all']").click();
+
+    playBtn.click();
   },
   next: function() {
     document.querySelector("button[data-id='forward']").click();
@@ -24,6 +29,7 @@ var commands = {
     document.querySelector("button[data-id='rewind']").click();
   },
   shuffle: function() {
+    // Click "My Library"
     document.querySelector("li[data-type='artists']").click();
     document.querySelector("button[data-id='shuffle-my-library']").click();
   }
