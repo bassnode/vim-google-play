@@ -28,14 +28,23 @@ class PlayHandler(asyncore.dispatcher_with_send):
 
           # Read the text (JSON object) of the message.
           text = sys.stdin.read(text_length)#.decode('utf-8')
+
           logging.debug("returned text " + text)
 
-          self.send(text)
+          formatted = self.format_song(text)
+
+          logging.debug("formatted the text")
+
+          self.send(formatted)
           self.close()
           return
 
         else:
           time.sleep(0.1)
+
+  def handle_error(self):
+    logging.exception("handled error")
+
 
   def write_to_chrome(self, command_text):
     formatted = { 'command': command_text.rstrip() }
@@ -45,6 +54,10 @@ class PlayHandler(asyncore.dispatcher_with_send):
     sys.stdout.write(command)
     sys.stdout.flush()
 
+  def format_song(self, text):
+    track_info = json.loads(text)['track']
+    track = {key: track_info[key].encode('utf-8') for key in track_info.keys()}
+    return "{} - {} / {}".format(track['artist'], track['song'], track['album'])
 
 class PlayServer(asyncore.dispatcher):
 
@@ -64,5 +77,9 @@ class PlayServer(asyncore.dispatcher):
 
 
 if __name__ == '__main__':
-  server = PlayServer('localhost', 8080)
-  asyncore.loop()
+  try:
+    server = PlayServer('localhost', 8080)
+    asyncore.loop()
+  except:
+    logging.exception("global exception")
+    raise
