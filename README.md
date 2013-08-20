@@ -24,7 +24,9 @@ By default, the key bindings are the following:
   * Play/Pause: <leader> + Spacebar
   * Next Song: <leader> + Right Arrow
   * Previous Song: <leader> + Left Arrow
-  * Shuffle Everything: <leader> + Up Arrow
+  * Volume Up: <leader> + Up Arrow
+  * Volume Down: <leader> + Down Arrow
+  * Shuffle Everything: <leader> + 8
 
 Configuration
 -------------

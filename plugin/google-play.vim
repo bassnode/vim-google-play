@@ -15,4 +15,6 @@ endfunction
 nnoremap <script> <silent> <leader><Space>   :call <sid>GPVim('play')<CR>
 nnoremap <script> <silent> <leader><Left>    :call <sid>GPVim('previous')<CR>
 nnoremap <script> <silent> <leader><Right>   :call <sid>GPVim('next')<CR>
-nnoremap <script> <silent> <leader><Up>      :call <sid>GPVim('shuffle')<CR>
+nnoremap <script> <silent> <leader><Up>      :call <sid>GPVim('louder')<CR>
+nnoremap <script> <silent> <leader><Down>    :call <sid>GPVim('softer')<CR>
+nnoremap <script> <silent> <leader>8         :call <sid>GPVim('shuffle')<CR>

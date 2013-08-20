@@ -8,6 +8,7 @@ import socket
 import logging
 import json
 import HTMLParser
+import subprocess
 
 logging.basicConfig(filename='/tmp/chrome.log',level=logging.DEBUG)
 
@@ -17,7 +18,12 @@ class PlayHandler(asyncore.dispatcher_with_send):
   def handle_read(self):
     data = self.recv(8192)
     if data:
-      self.write_to_chrome(data)
+      command_text = data.rstrip()
+
+      if command_text in ['louder', 'softer']:
+        self.handle_volume(command_text)
+
+      self.write_to_chrome(command_text)
 
       # Wait for the response from the browser
       while 1:
@@ -40,8 +46,27 @@ class PlayHandler(asyncore.dispatcher_with_send):
     logging.exception("handled error")
 
 
+  def handle_volume(self, command_text):
+    amount = 20 # percent
+    if command_text == 'softer':
+      amount *= -1
+
+    platform = sys.platform
+
+    if platform == 'darwin':
+      current_vol = subprocess.check_output(["osascript", '-e', 'output volume of (get volume settings)']).rstrip()
+      new_vol = int(current_vol) * (100 + amount) / 100
+      subprocess.call(["osascript", '-e', 'set volume output volume {}'.format(new_vol)])
+    elif platform == 'win32':
+      # no-op
+      logging.debug("Windows :(")
+    else:
+      new_vol = "{}%".format(amount)
+      subprocess.call(['pactl', 'set-sink-volume', '0', '--', new_vol])
+
+
   def write_to_chrome(self, command_text):
-    formatted = { 'command': command_text.rstrip() }
+    formatted = { 'command': command_text }
     command = json.dumps(formatted).encode('utf-8')
 
     logging.debug("writing to chrome " + command)
