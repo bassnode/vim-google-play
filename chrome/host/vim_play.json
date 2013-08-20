@@ -1,9 +1,9 @@
 {
   "name": "vim_play",
-  "description": "Do it",
+  "description": "Python script for communicating between Vim and Chrome",
   "path": "HOST_PATH",
   "type": "stdio",
   "allowed_origins": [
-    "chrome-extension://gngeamagflholakaoihooiimkjnmjdmh/"
+    "chrome-extension://jgpdpiambaioalgpjnbemjfhejlgmooh/"
   ]
 }
