@@ -4,6 +4,10 @@ var playPauseButton = function() {
   return document.querySelector("button[data-id='play-pause']");
 };
 
+var nextButton = function() {
+  return 
+};
+
 var currentTrackInfo = function() {
   return {
     song: document.getElementById('playerSongTitle').innerHTML,
@@ -16,6 +20,12 @@ var currentTrackInfo = function() {
 var commands = {
   play: function() {
     playPauseButton().click();
+  },
+  next: function() {
+    document.querySelector("button[data-id='forward']").click();
+  },
+  previous: function() {
+    document.querySelector("button[data-id='rewind']").click();
   }
 };
 
