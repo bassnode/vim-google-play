@@ -11,7 +11,7 @@ function sendNativeMessage() {
 }
 
 function onNativeMessage(message) {
-  log("Received message: " + message);
+  console.log("Received message: ", message);
   var query = {url: '*://play.google.com/music/*'};
   chrome.tabs.query(query, function(tabs) {
     console.log('tabs', tabs);
