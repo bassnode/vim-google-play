@@ -18,22 +18,15 @@ class PlayHandler(asyncore.dispatcher_with_send):
     if data:
       self.write_to_chrome(data)
 
+      # Wait for the response from the browser
       while 1:
-        # Read the message type (first 4 bytes).
         text_length_bytes = sys.stdin.read(4)
 
         if len(text_length_bytes) > 0:
-          # Read the message length (4 bytes).
           text_length = struct.unpack('i', text_length_bytes)[0]
 
-          # Read the text (JSON object) of the message.
-          text = sys.stdin.read(text_length)#.decode('utf-8')
-
-          logging.debug("returned text " + text)
-
+          text = sys.stdin.read(text_length)
           formatted = self.format_song(text)
-
-          logging.debug("formatted the text")
 
           self.send(formatted)
           self.close()
@@ -49,6 +42,7 @@ class PlayHandler(asyncore.dispatcher_with_send):
   def write_to_chrome(self, command_text):
     formatted = { 'command': command_text.rstrip() }
     command = json.dumps(formatted).encode('utf-8')
+
     logging.debug("writing to chrome " + command)
     sys.stdout.write(struct.pack("I", len(command)))
     sys.stdout.write(command)
@@ -72,7 +66,6 @@ class PlayServer(asyncore.dispatcher):
     pair = self.accept()
     if pair is not None:
       sock, addr = pair
-      logging.debug("handling accept")
       handler = PlayHandler(sock)
 
 
