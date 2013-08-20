@@ -9,7 +9,7 @@ var currentTrackInfo = function() {
 
 var fetchSafely = function(domId) {
     var el = document.getElementById(domId);
-    return (el && el.length) ?  el.innerHTML : '';
+    return el ? el.innerHTML : '';
 };
 
 var playPauseButton = function() {
