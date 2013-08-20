@@ -22,6 +22,10 @@ var commands = {
   },
   previous: function() {
     document.querySelector("button[data-id='rewind']").click();
+  },
+  shuffle: function() {
+    document.querySelector("li[data-type='artists']").click();
+    document.querySelector("button[data-id='shuffle-my-library']").click();
   }
 };
 
