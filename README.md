@@ -32,16 +32,22 @@ By default, the key bindings are the following:
   * Volume Down: <leader> + Down Arrow
   * Shuffle Everything: <leader> + 8
 
+See below for details on how to change the mapping.
+
+
 Configuration
 -------------
+If you want to use something other than the leader key for the prefix, set it like so:
+
+    let g:google_play_prefix = "F"
+
 The script uses netcat (`nc`) to communicate.  If your OS doesn't have access to netcat,
 you can override the binary to use by setting this in your ~/.vimrc:
 
-```
-  let g:google_play_net_exec = 'netcat.exe'
-```
+    let g:google_play_net_exec = "netcat.exe"
 
 Note that it's much preferred to use netcat as there's no guarantee your replacement will work.
+
 
 Notes
 -----

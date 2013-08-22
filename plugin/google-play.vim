@@ -3,6 +3,10 @@ if exists('g:loaded_google_play') || &cp
 endif
 let g:loaded_google_play = 1
 
+if !exists('g:google_play_prefix')
+  let g:google_play_prefix = "F"
+endif
+
 if !exists('g:google_play_net_exec')
   let g:google_play_net_exec = 'nc'
 endif
@@ -12,9 +16,13 @@ function! s:GPVim(command)
   echom output
 endfunction
 
-nnoremap <script> <silent> <leader><Space>   :call <sid>GPVim('play')<CR>
-nnoremap <script> <silent> <leader><Left>    :call <sid>GPVim('previous')<CR>
-nnoremap <script> <silent> <leader><Right>   :call <sid>GPVim('next')<CR>
-nnoremap <script> <silent> <leader><Up>      :call <sid>GPVim('louder')<CR>
-nnoremap <script> <silent> <leader><Down>    :call <sid>GPVim('softer')<CR>
-nnoremap <script> <silent> <leader>8         :call <sid>GPVim('shuffle')<CR>
+function! s:MakeMapping(key, command)
+  exe "nnoremap <script> <silent> " . g:google_play_prefix . a:key . " :call <sid>GPVim('" . a:command . "')<CR>"
+endfunction
+
+call s:MakeMapping('<space>', 'play')
+call s:MakeMapping('<left>', 'previous')
+call s:MakeMapping('<right>', 'next')
+call s:MakeMapping('<up>', 'louder')
+call s:MakeMapping('<down>', 'softer')
+call s:MakeMapping('8', 'shuffle')
