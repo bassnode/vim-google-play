@@ -8,11 +8,12 @@ Installation
 ------------
 Make sure you're using the beta version of [Google Chrome](https://www.google.com/intl/en/chrome/browser/beta.html "Chrome Beta")
 
-    # Install the Vim plugin via Pathogen
+Install the Vim plugin via Pathogen
+
     git clone https://code.google.com/p/vim-google-play/ ~/.vim/bundle/vim-google-play
 
-    # Install the Python script which communicates
-    # between Chrome and Vim:
+Install the Python script which communicates between Chrome and Vim:
+
     sudo ~/.vim/bundle/vim-google-play/chrome/host/install_host.sh
 
 Install the [Chrome extension](https://chrome.google.com/webstore/detail/vim-google-play/hlkahhljkhopbnhajdjmiicihofpnjla "Install extension")
@@ -44,7 +45,7 @@ Note that it's much preferred to use netcat as there's no guarantee your replace
 
 Notes
 -----
-The perceptive developer will note that in the initial Git checkout, you also pull down the Chrome Extension code.  The reasons the steps
+The perceptive developer will note that in the Git checkout includes the Chrome Extension code.  The reasons the steps
 suggest installing it from the Chrome Store are to have extension IDs match up (the Vim plugin depends on it) and to make it easier
 for you to update.
 
