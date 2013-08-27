@@ -4,7 +4,7 @@ endif
 let g:loaded_google_play = 1
 
 if !exists('g:google_play_prefix')
-  let g:google_play_prefix = "F"
+  let g:google_play_prefix = "<leader>"
 endif
 
 if !exists('g:google_play_net_exec')
