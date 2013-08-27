@@ -60,9 +60,16 @@ class PlayHandler(asyncore.dispatcher_with_send):
     elif platform == 'win32':
       # no-op
       logging.debug("Windows :(")
-    else:
-      new_vol = "{}%".format(amount)
-      subprocess.call(['pactl', 'set-sink-volume', '0', '--', new_vol])
+    else: # Linux
+      fmt = "+" if command_text != 'softer' else ""
+      new_vol = "{}{}%".format(fmt, amount)
+      sinks = subprocess.check_output(["pactl", "list", "short", "sinks"])
+      current_sink = [ line for i, line in enumerate(sinks.split("\n")) if line.endswith('RUNNING') ]
+
+      if len(current_sink) != 0:
+        sink_id = current_sink[0].split("\t")[0]
+        logging.debug("Setting sink-id " + sink_id + " to " + new_vol)
+        subprocess.call(['pactl', 'set-sink-volume', sink_id, '--', new_vol])
 
 
   def write_to_chrome(self, command_text):
