@@ -10,6 +10,10 @@ Install the Vim plugin via Pathogen
 
     git clone https://github.com/bassnode/vim-google-play.git ~/.vim/bundle/vim-google-play
 
+Install GNU coreutils if you're on OS X
+
+    sudo brew install coreutils
+
 Install the Python script which communicates between Chrome and Vim:
 
     sudo ~/.vim/bundle/vim-google-play/chrome/host/install_host.sh
