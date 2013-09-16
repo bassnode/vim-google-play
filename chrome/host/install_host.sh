@@ -23,7 +23,7 @@ cp $DIR/$HOST_NAME.json $TARGET_DIR
 # Update host path in the manifest.
 HOST_PATH=$DIR/vim_play
 ESCAPED_HOST_PATH=${HOST_PATH////\\/}
-sed -i '' -e "s/HOST_PATH/$ESCAPED_HOST_PATH/" $TARGET_DIR/$HOST_NAME.json
+sed -i='' -e "s/HOST_PATH/$ESCAPED_HOST_PATH/" $TARGET_DIR/$HOST_NAME.json
 
 # Set permissions for the manifest so that all users can read it.
 chmod o+r $TARGET_DIR/$HOST_NAME.json
