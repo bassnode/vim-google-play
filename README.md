@@ -6,11 +6,9 @@ Keep focus on your code and still control Google Play's Music interface.
 
 Installation
 ------------
-Make sure you're using the beta version of [Google Chrome](https://www.google.com/intl/en/chrome/browser/beta.html "Chrome Beta")
-
 Install the Vim plugin via Pathogen
 
-    git clone https://code.google.com/p/vim-google-play/ ~/.vim/bundle/vim-google-play
+    git clone https://github.com/bassnode/vim-google-play.git ~/.vim/bundle/vim-google-play
 
 Install the Python script which communicates between Chrome and Vim:
 
@@ -25,14 +23,14 @@ Controlling Google Play
 -----------------------
 By default, the key bindings are the following:
 
-  * Play/Pause: <leader> + Spacebar
-  * Next Song: <leader> + Right Arrow
-  * Previous Song: <leader> + Left Arrow
-  * Volume Up: <leader> + Up Arrow
-  * Volume Down: <leader> + Down Arrow
-  * Shuffle Everything: <leader> + 8
+  * Play/Pause: `<leader>` + Spacebar
+  * Next Song: `<leader>` + Right Arrow
+  * Previous Song: `<leader>` + Left Arrow
+  * Volume Up: `<leader>` + Up Arrow
+  * Volume Down: `<leader>` + Down Arrow
+  * Shuffle Everything: `<leader>` + 8
 
-See below for details on how to change the mapping.
+Volume control only workd on OSX and Linux.
 
 
 Configuration
