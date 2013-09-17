@@ -1,3 +1,9 @@
+if has("unix")
+  let s:uname = system("uname")
+else
+  let s:uname = 'windows'
+endif
+
 if exists('g:loaded_google_play') || &cp
   finish
 endif
@@ -16,7 +22,7 @@ if !exists('g:google_play_timeout')
     " Mac users need to install coreutils via homebrew or another package
     " manager.
     let g:google_play_timeout = 'gtimeout'
-  else
+  elseif s:uname == 'Linux'
     let g:google_play_timeout = 'timeout'
   endif
 endif
