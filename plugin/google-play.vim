@@ -1,5 +1,5 @@
 if has("unix")
-  let s:uname = system("uname")
+  let s:uname = substitute(system('uname'), '\n', '', '')
 else
   let s:uname = 'windows'
 endif
